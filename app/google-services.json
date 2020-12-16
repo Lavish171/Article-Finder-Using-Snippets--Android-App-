@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "786190147077",
+    "firebase_url": "https://article-finder-bb398.firebaseio.com",
+    "project_id": "article-finder-bb398",
+    "storage_bucket": "article-finder-bb398.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786190147077:android:02384f66cb0a1831cc466c",
+        "android_client_info": {
+          "package_name": "com.example.articlefinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "786190147077-53gdte4j61p1a47ibe2q27hoknffcu84.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.articlefinder",
+            "certificate_hash": "a233bb138b7282dcc158d18766587df7957a94d4"
+          }
+        },
+        {
+          "client_id": "786190147077-ttc3b46an7jquko97luka436sh7ldjfs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9omW88JsK6hIzuMYhJrAMgJRWyjfWQV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "786190147077-ttc3b46an7jquko97luka436sh7ldjfs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

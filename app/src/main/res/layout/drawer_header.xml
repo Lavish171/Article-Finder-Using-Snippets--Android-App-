@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient1"
+    android:padding="16dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/userprofile_image"
+        android:layout_width="135dp"
+        android:layout_height="140dp"
+        android:src="@drawable/add_profile_image"
+        app:civ_border_width="3dp"
+        app:civ_border_color="#FF000000"/>
+
+    <ProgressBar
+        android:id="@+id/progressbarDrawerHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/userprofile_email_id"
+        android:layout_width="match_parent"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textSize="18dp"
+        android:layout_height="wrap_content"
+        android:textColor="#F1EAEA"
+        android:textStyle="bold"
+        android:text="Welcome to AFUS" />
+
+
+</LinearLayout>
