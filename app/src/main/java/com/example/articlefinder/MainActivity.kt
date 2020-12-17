@@ -1,5 +1,6 @@
 package com.example.articlefinder
 
+import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -140,7 +141,40 @@ class MainActivity :BaseCompatActivity(),MainActivityAdapter.MainActivityAdapter
        // Toast.makeText(this,"Items clicked",Toast.LENGTH_SHORT).show()
         if(s=="star")
         {
-          Toast.makeText(this,"Pdf Saved",Toast.LENGTH_SHORT).show()
+            val builder = AlertDialog.Builder(this)
+            //set title for alert dialog
+            builder.setTitle("Save PDF")
+            //set message for alert dialog
+            builder.setMessage("Are you sure you want to save the pdf ?..")
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+            //performing positive action
+            builder.setPositiveButton("Yes"){dialogInterface, which ->
+                Toast.makeText(applicationContext,"clicked yes",Toast.LENGTH_LONG).show()
+                lateinit var  firestoreDbSavedPdf: FirebaseFirestore
+                firestoreDbSavedPdf= FirebaseFirestore.getInstance()
+
+                Log.i("pdf user", pdfItem.pdfname.toString())
+                val savepdf=Pdfs(pdfItem.pdfname,pdfItem.pdfUrl,pdfItem.creationTimeMs,pdfItem.user)
+
+                firestoreDbSavedPdf.collection("savedpdf").add(savepdf).addOnSuccessListener {
+                    Toast.makeText(this,"Pdf Saved",Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener {
+                    Toast.makeText(this,"Error In Saving Pdf",Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            builder.setNeutralButton("No "){dialogInterface , which ->
+                Toast.makeText(applicationContext,"clicked No",Toast.LENGTH_LONG).show()
+            }
+
+            //performing negative action
+            // Create the AlertDialog
+            val alertDialog: AlertDialog = builder.create()
+            // Set other dialog properties
+            alertDialog.setCancelable(false)
+            alertDialog.show()
+
         }
         else if(s=="open")
         {
