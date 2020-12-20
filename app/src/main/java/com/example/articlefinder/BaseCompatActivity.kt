@@ -19,19 +19,30 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
 import com.example.articlefinder.models.Pdfs
 import com.example.articlefinder.models.User
-import com.google.android.gms.tasks.Task
+import com.example.articlefinder.networking.JsonApi
+import com.example.articlefinder.networking.RetrofitPostUserIdAndPdfId
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.navigation.NavigationView
+import com.google.common.reflect.TypeToken
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.gson.Gson
+import com.squareup.okhttp.OkHttpClient
 import kotlinx.android.synthetic.main.drawer_header.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.util.concurrent.TimeUnit
+
 
 
 //import java.lang.Exception
@@ -224,6 +235,7 @@ abstract class BaseCompatActivity : AppCompatActivity() {
             ref.downloadUrl
         }.addOnCompleteListener { task ->
             if (task.isSuccessful) {
+
                 Toast.makeText(this,"Uploaded Successfully",Toast.LENGTH_SHORT).show()
                 val downloadUri = task.result
                 val firestoreDb=FirebaseFirestore.getInstance()
@@ -232,7 +244,58 @@ abstract class BaseCompatActivity : AppCompatActivity() {
                     val pdf=Pdfs(file.nameWithoutExtension,downloadUri.toString(),System.currentTimeMillis(),signedUser)
                 Log.i(TAG,"Signed Near In user $signedUser")
                 Log.i(TAG,"pdf content ${pdf.toString()}")
-                firestoreDb.collection("pdfs").add(pdf)
+                firestoreDb.collection("pdfs").add(pdf).addOnSuccessListener {
+
+
+                    // val client = OkHttpClient.Builder().build()
+                   /* val httpClient = okhttp3.OkHttpClient.Builder()
+                        .callTimeout(10, TimeUnit.MINUTES)
+                        .connectTimeout(60, TimeUnit.SECONDS)
+                        .readTimeout(60, TimeUnit.SECONDS)
+                        .writeTimeout(60, TimeUnit.SECONDS)*/
+                    val retrofitBuilder=Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
+                        .baseUrl("http://20.185.230.90:5002/api/")
+                        .build()
+
+
+
+                    val jsonApi=retrofitBuilder.create(JsonApi::class.java)
+
+                    val retrofitPostUserIdAndPdfId=RetrofitPostUserIdAndPdfId(
+                        "ppikz00C5EMp4qob309o251J3XC3","B2iQBrVkDEzhufMcGL8t")
+
+                   // val jsonTut: String = Gson.toJson(retrofitPostUserIdAndPdfId)
+
+                    val call=jsonApi.sendUserIdAndFileId(retrofitPostUserIdAndPdfId)
+                    Log.i("Call Response",call.toString())
+
+                    call.enqueue(object: Callback<RetrofitPostUserIdAndPdfId>{
+                        override fun onFailure(call: Call<RetrofitPostUserIdAndPdfId>, t: Throwable) {
+                            Log.i("Response","Failed and Exception $t")
+                        }
+
+                        override fun onResponse(call: Call<RetrofitPostUserIdAndPdfId>, response: Response<RetrofitPostUserIdAndPdfId>) {
+                            Log.i("Response ",response.code().toString())
+
+                            if(response.isSuccessful)
+                            {
+                                Log.i("Response Body",response.body().toString())
+                            }
+                            else
+                            {
+                                //Log.i("Response Error Body",response.body().toString())
+                                val gson = Gson()
+                                val type = object : TypeToken<ErrorResponse>() {}.type
+                                var errorResponse: ErrorResponse? = gson.fromJson(response.errorBody()!!.charStream(), type)
+                                Log.i("Result", errorResponse.toString())
+                            }
+                        }
+
+                    })
+
+                }//ye hta skte he jrurt pdne pr
+
+
 
                 Log.i(TAG,"Downloaded Uri ${downloadUri.toString()}")
             } else {
@@ -240,8 +303,6 @@ abstract class BaseCompatActivity : AppCompatActivity() {
                 // ...
             }
         }
-
-
 
 
 

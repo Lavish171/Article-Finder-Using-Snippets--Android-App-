@@ -119,6 +119,7 @@ class MainActivity :BaseCompatActivity(),MainActivityAdapter.MainActivityAdapter
             Log.i(TAG, "query snapshot ${querySnapshot.toString()}")
             val pdfList = querySnapshot.toObjects(Pdfs::class.java)
             Log.i("PDf List", pdfList.toString())
+
             //as we got some updated data from firestore
             //we will tell the adapter that we have
             //received some updated data
