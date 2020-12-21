@@ -263,11 +263,14 @@ abstract class BaseCompatActivity : AppCompatActivity() {
 
                     val retrofitPostUserIdAndPdfId=RetrofitPostUserIdAndPdfId(
                         "ppikz00C5EMp4qob309o251J3XC3","B2iQBrVkDEzhufMcGL8t")
+                    val json = "{\"user_id\": \"Rolando\", \"file_id\": \"asakjdkaak\"}"
 
-                   // val jsonTut: String = Gson.toJson(retrofitPostUserIdAndPdfId)
+                   //val jsonTut: String = Gson().toJson(json)
+                  //  System.out.println("Json Tut"+jsonTut.toString())
+                    System.out.println("Json Print$json")
+                    val call=jsonApi.sendUserIdAndFileId(json)
+                    System.out.println("Call Response$call")
 
-                    val call=jsonApi.sendUserIdAndFileId(retrofitPostUserIdAndPdfId)
-                    Log.i("Call Response",call.toString())
 
                     call.enqueue(object: Callback<RetrofitPostUserIdAndPdfId>{
                         override fun onFailure(call: Call<RetrofitPostUserIdAndPdfId>, t: Throwable) {
@@ -284,10 +287,11 @@ abstract class BaseCompatActivity : AppCompatActivity() {
                             else
                             {
                                 //Log.i("Response Error Body",response.body().toString())
-                                val gson = Gson()
+                                /*val gson = Gson()
                                 val type = object : TypeToken<ErrorResponse>() {}.type
                                 var errorResponse: ErrorResponse? = gson.fromJson(response.errorBody()!!.charStream(), type)
-                                Log.i("Result", errorResponse.toString())
+                                Log.i("Result", errorResponse.toString())*/
+                                System.out.println("YEAH: " + response.errorBody()?.string());
                             }
                         }
 

@@ -15,7 +15,6 @@ interface JsonApi {
 
     @POST("files")
     fun sendUserIdAndFileId(
-        @Body retrofitPostUserIdAndPdfId: RetrofitPostUserIdAndPdfId
-
+        @Body retrofitPostUserIdAndPdfId: String
     ):Call<RetrofitPostUserIdAndPdfId>
 }
