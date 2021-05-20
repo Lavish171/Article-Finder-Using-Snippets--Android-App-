@@ -23,16 +23,17 @@
             android:textStyle="italic"
             android:textColor="#D21717"
             android:textAlignment="center"
-            android:text="This is a Article Finder App.In which we search the article using Snippets. This is a great app.One Must Try It.\n"/>
+            android:text="This is a Article Finder App. This is a great app.One Must Try It.\n"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="35sp"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:layout_gravity="center_horizontal"
-            android:textColor="#0000FF"
-            android:text="Team Members " />
+            android:textColor="#00BCD4"
+            android:text="Developer" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,9 +41,9 @@
             android:layout_marginTop="85dp"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
-            android:text="1) Lavish Garg \n 2)Ajinkya Dandvate \n 3) Ajinkya Taranekar\n 4) Malay Saxena"
+            android:text="Lavish Garg \n "
             android:textColor="#C4F58C"
-            android:textSize="30sp" />
+            android:textSize="45sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
